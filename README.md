@@ -1,4 +1,5 @@
-# Fraud_detection
+# Stock_Market_Kafka_Project
+
 
 # Apache Kafka Overview
 
@@ -31,6 +32,55 @@ Kafka enables businesses to build real-time data pipelines and event-driven appl
 ![Apache Kafka Architecture](Apache-Kafka-basic-architecture.png) [2]
 
 
+## Commands
+```bash
+1. for Kakfa setup, download it using the following command:
+wget https://downloads.apache.org/kafka/3.9.0/kafka_2.12-3.9.0.tgz
+
+2. To install the setup
+tar -xzf kafka_2.12-3.9.0.tgz
+
+3. To install Java, use the following commands:
+sudo yum install java
+java -version
+
+4. Change the directory to kafka installed directory using 
+cd kafka_2.12-3.9.0
+
+5. Start Zoo-keeper:
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+6.Open another window to start kafka
+But first ssh to to your ec2 machine
+Start Kafka-server:
+Duplicate the session & enter in a new console --
+export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
+cd kafka_2.12-3.9.0
+bin/kafka-server-start.sh config/server.properties
+
+7. It is pointing to private server , change server.properties so that it can run in public IP 
+To do this , you can follow any of the 2 approaches shared below
+Do a "sudo nano config/server.properties" - change ADVERTISED_LISTENERS to public ip of the EC2 instance
+
+8. Create the topic, using following steps:
+Duplicate the session & enter in a new console
+cd kafka_2.12-3.9.0
+bin/kafka-topics.sh --create --topic demo_testing --bootstrap-server 'Put the Public IP of your EC2 Instance:9092' --replication-factor 1 --partitions 1
+
+9. Start Producer, using following steps:
+Duplicate the session & enter in a new console
+cd kafka_2.12-3.9.0
+bin/kafka-console-producer.sh --topic demo_testing --bootstrap-server 'Put the Public IP of your EC2 Instance:9092'
+
+10. Start Consumer, using following steps:
+Duplicate the session & enter in a new console:
+cd kafka_2.12-3.9.0
+bin/kafka-console-consumer.sh --topic demo_testing --bootstrap-server 'Put the Public IP of your EC2 Instance:9092'
+
+
+
+
+```
 # References
 [1] “Apache Kafka,” Apache Kafka. https://kafka.apache.org/documentation/#gettingStarted
 
